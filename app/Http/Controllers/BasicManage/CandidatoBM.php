@@ -3,12 +3,14 @@ namespace App\Http\Controllers\BasicManage;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\BasicManage\Persona;
-use App\Models\BasicManage\PersonaMuni;
+use App\Models\BasicManage\Candidato;
+use App\Models\BasicManage\PreVoto;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class PersonaBM extends Controller
+
+
+class CandidatoBM extends Controller
 {
     public function __construct()
     {
@@ -18,9 +20,27 @@ class PersonaBM extends Controller
     public function EditStatus(Request $r )
     {
         if ( $r->ajax() ) {
-            Persona::runEditStatus($r);
+            Candidato::runEditStatus($r);
             $return['rst'] = 1;
             $return['msj'] = 'Registro actualizado';
+            return response()->json($return);
+        }
+    }
+    
+        public function SearchPerson(Request $r )
+    {
+        if ( $r->ajax() ) {
+            $result=Candidato::runSearchPerson($r);
+            if($result){
+                $return['rst'] = 1;
+                $return['data'] = $result;
+                $return['msj'] = 'Persona encontrada';
+            }else{
+                $return['rst'] = 2;
+                $return['data'] = $result;
+                $return['msj'] = 'Persona no encontrada';
+            }
+
             return response()->json($return);
         }
     }
@@ -28,40 +48,64 @@ class PersonaBM extends Controller
     public function New(Request $r )
     {
         if ( $r->ajax() ) {
-           
+
             $mensaje= array(
                 'required'    => ':attribute es requerido',
                 'unique'        => ':attribute solo debe ser único',
             );
 
             $rules = array(
-                'dni' => 
+                'persona_id' => 
                        ['required',
-                        Rule::unique('personas','dni')->where(function ($query) use($r) {
-                            if( $r->dni!='99999999' ){
-                                $query->where('dni', $r->dni);
-                            }
-                            else {
-                               $query->where('dni','!=' ,$r->dni); 
-                            }
-                        }),
+                    
                         ],
-                'password' => 
-                       ['required',
-                       ],
             );
 
-            $validator=Validator::make($r->all(), $rules,$mensaje);
             
-            if (!$validator->fails()) {
-                Persona::runNew($r);
+            $validator=Validator::make($r->all(), $rules,$mensaje);
+
+            if ( !$validator->fails() ) {
+                Candidato::runNew($r);
                 $return['rst'] = 1;
                 $return['msj'] = 'Registro creado';
-            }else{
+            }
+            else{
                 $return['rst'] = 2;
                 $return['msj'] = $validator->errors()->all()[0];
             }
+            return response()->json($return);
+        }
+    }
+    
+        public function NewVotante(Request $r )
+    {
+        if ( $r->ajax() ) {
 
+            $mensaje= array(
+                'required'    => ':attribute es requerido',
+                'unique'        => ':attribute solo debe ser único',
+            );
+
+            $rules = array(
+                'persona_id' => 
+                       ['required',
+                    
+                        ],
+            );
+
+            
+            $validator=Validator::make($r->all(), $rules,$mensaje);
+
+            if ( !$validator->fails() ) {
+                $aleatorio=PreVoto::runNew($r);
+                $return['rst'] = 1;
+                $return['aleatorio'] = $aleatorio;
+                $return['msj'] = 'Registro creado';
+            }
+            else{
+                $return['rst'] = 2;
+                $return['msj'] = $validator->errors()->all()[0];
+            }
             return response()->json($return);
         }
     }
@@ -69,35 +113,29 @@ class PersonaBM extends Controller
     public function Edit(Request $r )
     {
         if ( $r->ajax() ) {
-            
             $mensaje= array(
                 'required'    => ':attribute es requerido',
                 'unique'        => ':attribute solo debe ser único',
             );
 
             $rules = array(
-                'dni' => 
+                'persona_id' => 
                        ['required',
-                        Rule::unique('personas','dni')->ignore($r->id)->where(function ($query) use($r) {
-                            if( $r->dni=='99999999' ){
-                                $query->where('dni','!=' ,$r->dni);
-                            }
-                        }),
+                        Rule::unique('candidatos','id')->ignore($r->id),
                         ],
-           
             );
 
             $validator=Validator::make($r->all(), $rules,$mensaje);
-            
-            if (!$validator->fails()) {
-                Persona::runEdit($r);
+
+            if ( !$validator->fails() ) {
+                Candidato::runEdit($r);
                 $return['rst'] = 1;
                 $return['msj'] = 'Registro actualizado';
-            }else{
+            }
+            else{
                 $return['rst'] = 2;
                 $return['msj'] = $validator->errors()->all()[0];
             }
-
             return response()->json($return);
         }
     }
@@ -105,18 +143,18 @@ class PersonaBM extends Controller
     public function Load(Request $r )
     {
         if ( $r->ajax() ) {
-            $renturnModel = Persona::runLoad($r);
+            $renturnModel = Candidato::runLoad($r);
             $return['rst'] = 1;
             $return['data'] = $renturnModel;
             $return['msj'] = "No hay registros aún";
             return response()->json($return);
         }
     }
-
-    public function Load2(Request $r )
+    
+        public function ListCandidato (Request $r )
     {
         if ( $r->ajax() ) {
-            $renturnModel = PersonaMuni::runLoad($r);
+            $renturnModel = Candidato::ListCandidato($r);
             $return['rst'] = 1;
             $return['data'] = $renturnModel;
             $return['msj'] = "No hay registros aún";

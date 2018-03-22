@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use DB;
 
-class Persona extends Model
+class PersonaMuni extends Model
 {
     protected   $table = 'personas';
     protected $connection= 'mysql2';
@@ -78,7 +78,7 @@ class Persona extends Model
 
     public static function runLoad($r)
     {
-        $sql=Persona::select('id','paterno','materno','nombre','dni',
+        $sql=PersonaMuni::select('id','paterno','materno','nombre','dni',
             'email',DB::raw('IFNULL(fecha_nacimiento,"") as fecha_nacimiento'),'sexo','telefono',
             'celular','password','estado')
             ->where( 

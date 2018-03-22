@@ -64,6 +64,9 @@
                         <div class='btn btn-primary btn-sm' class="btn btn-primary" onClick="AgregarEditar(1)" >
                             <i class="fa fa-plus fa-lg"></i>&nbsp;Nuevo</a>
                         </div>
+                        <div class='btn btn-primary btn-sm' class="btn btn-primary" onClick="DatosMuni()" >
+                            <i class="fa fa-plus fa-lg"></i>&nbsp;Cargar Datos de Muni</a>
+                        </div>
                     </div><!-- .box-body -->
             
             </div><!-- .box -->
