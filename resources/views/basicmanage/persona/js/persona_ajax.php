@@ -16,6 +16,14 @@ var AjaxPersona={
 
         
     },
+    CargarDatosMuni:function(evento){
+        data={};
+        $("#PersonaForm input[type='hidden']").not('.mant').remove();
+        url='AjaxDinamic/BasicManage.PersonaBM@Load2';
+        masterG.postAjax(url,data,evento);
+
+        
+    },
     CambiarEstado:function(evento,AI,id){
         $("#ModalPersonaForm").append("<input type='hidden' value='"+AI+"' name='estadof'>");
         $("#ModalPersonaForm").append("<input type='hidden' value='"+id+"' name='id'>");

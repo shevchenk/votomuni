@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BasicManage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\BasicManage\Persona;
+use App\Models\BasicManage\PersonaMuni;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -105,6 +106,17 @@ class PersonaBM extends Controller
     {
         if ( $r->ajax() ) {
             $renturnModel = Persona::runLoad($r);
+            $return['rst'] = 1;
+            $return['data'] = $renturnModel;
+            $return['msj'] = "No hay registros aún";
+            return response()->json($return);
+        }
+    }
+
+    public function Load2(Request $r )
+    {
+        if ( $r->ajax() ) {
+            $renturnModel = PersonaMuni::runLoad($r);
             $return['rst'] = 1;
             $return['data'] = $renturnModel;
             $return['msj'] = "No hay registros aún";

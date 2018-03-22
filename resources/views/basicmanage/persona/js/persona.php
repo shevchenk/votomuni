@@ -64,6 +64,10 @@ $(document).ready(function() {
     });
 });
 
+DatosMuni=function(){
+    AjaxPersona.CargarDatosMuni(HTMLCargarPersona);
+}
+
 ValidaForm=function(){
     var r=true;
     if( $.trim( $("#ModalPersonaForm #txt_nombre").val() )=='' ){
