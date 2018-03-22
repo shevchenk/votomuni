@@ -10,10 +10,48 @@ Target Server Type    : MYSQL
 Target Server Version : 100130
 File Encoding         : 65001
 
-Date: 2018-03-22 12:44:22
+Date: 2018-03-22 13:54:50
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for candidatos
+-- ----------------------------
+DROP TABLE IF EXISTS `candidatos`;
+CREATE TABLE `candidatos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `persona_id` int(11) DEFAULT NULL,
+  `estado` int(11) NOT NULL DEFAULT '1',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `persona_id_created_at` int(11) NOT NULL,
+  `persona_id_updated_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of candidatos
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for eventos
+-- ----------------------------
+DROP TABLE IF EXISTS `eventos`;
+CREATE TABLE `eventos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `evento` varchar(250) DEFAULT NULL,
+  `estado` int(11) NOT NULL DEFAULT '1',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `persona_id_created_at` int(11) NOT NULL,
+  `persona_id_updated_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of eventos
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for menus
@@ -107,7 +145,7 @@ CREATE TABLE `personas` (
 -- ----------------------------
 -- Records of personas
 -- ----------------------------
-INSERT INTO `personas` VALUES ('1', 'Admin', 'System', 'Software', '12312312', 'M', 'jorgeshevchenk@gmail.com', '$2y$10$d3smAsgOCWZYHDJKBVvegeWjHvNE1QmAdW0envPb7CAXg58vMAGWe', '2JIAmO8IiD4tn8skOsHjzhYURGHdiAggVMMfNFkPKy06uNyf9IxSUuhe9XRT', null, '', '', '1988-10-14', '1', '2017-05-26 15:53:15', '2017-08-09 11:04:25', '1', '1');
+INSERT INTO `personas` VALUES ('1', 'Admin', 'System', 'Software', '12312312', 'M', 'jorgeshevchenk@gmail.com', '$2y$10$d3smAsgOCWZYHDJKBVvegeWjHvNE1QmAdW0envPb7CAXg58vMAGWe', 'psXc4IilUhVsAGog5uDOzbTkKV7N4rHPOkN8nnFj0qla0M5Bpfx01YnLGBm5', null, '', '', '1988-10-14', '1', '2017-05-26 15:53:15', '2017-08-09 11:04:25', '1', '1');
 INSERT INTO `personas` VALUES ('2', 'Escobar', 'Vasquez', 'Abeldaño', '34234234', 'M', '', '$2y$10$FKTtnWg0srdJA9vfOwP34.k43DnYsMJ9ByhIZW3Yknjn1rnWo75xu', null, '', '', '', null, '1', '2017-06-14 11:40:08', '2017-06-14 14:52:53', '1', '1');
 INSERT INTO `personas` VALUES ('3', 'gg', 'gg', 'gg', '99999999', 'M', 'RCAPCHAB@gmail.com', '$2y$10$ar4fnjro47P7c0Mr97j0FOkdUqzazQIlhQ0xI4rLQDXPRkEh/WY66', null, '', '6666666', '999999999', '2017-06-14', '1', '2017-06-14 14:28:44', '2017-06-14 14:28:44', '1', null);
 
@@ -227,3 +265,22 @@ CREATE TABLE `sucursales` (
 -- ----------------------------
 INSERT INTO `sucursales` VALUES ('1', 'Sucursal Nueva', 'Mz C lT 15', '6283848', '91291291', 'RCAPCHAB@gmail.com', '', '1', '2017-05-30 21:39:25', '2017-05-31 09:19:03', '1', '1');
 INSERT INTO `sucursales` VALUES ('2', 'sucursal vieja', 'Mz C lT 15', '948484', '94838', 'RCAPCHAB@gmail.com', '', '1', '2017-06-04 11:37:28', '2017-06-04 11:37:28', '1', null);
+
+-- ----------------------------
+-- Table structure for votos
+-- ----------------------------
+DROP TABLE IF EXISTS `votos`;
+CREATE TABLE `votos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `candidato_id` int(11) DEFAULT NULL,
+  `estado` int(11) NOT NULL DEFAULT '1',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `persona_id_created_at` int(11) NOT NULL,
+  `persona_id_updated_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of votos
+-- ----------------------------
