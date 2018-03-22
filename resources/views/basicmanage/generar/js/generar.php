@@ -12,10 +12,6 @@ ValidaForm=function(){
         r=false;
         msjG.mensaje('warning','Ingrese DNI de Candidato válido',4000);
     }
-    else if( $.trim( $("#ModalGenerarForm #txt_codigo").val() )=='' ){
-        r=false;
-        msjG.mensaje('warning','No hay código generado',4000);
-    }
 
     return r;
 }
@@ -36,26 +32,8 @@ HTMLCargarPersona=function(result){
         $("#ModalGenerarForm #txt_dni").val(result.data.dni);
         $("#ModalGenerarForm #txt_sexo").val(result.data.sexo);
         $("#ModalGenerarForm #txt_candidato").val(result.data.paterno+' '+result.data.materno+' '+result.data.nombre);
-        
-        var numero;
-        var numero="";
-        var cifra=[];
-        for(a=0;a<4;a++){
-                cifra[a]=parseInt(Math.random()*10);
-                if(a==0){	//quita esto si el número puede empezar por cero
-                        cifra[a]=parseInt(Math.random()*9)+1;//quita esto si el número puede empezar por cero
-                }//quita esto si el número puede empezar por cero
-                for(aa=0;aa<a;aa++){
-                        if(cifra[a]==cifra[aa]){a-=1;break}
-
-                }
-        }
-        for(a=0;a<4;a++){
-                numero+=cifra[a];
-        }
-        numero=parseInt(numero);//quita esto para que pueda empezar por cero.
-        
-        $("#ModalGenerarForm #txt_codigo").val(numero);
+      
+        $("#ModalGenerarForm #txt_codigo").val("");
     } else{
         msjG.mensaje('warning',result.msj,3000);
         $("#ModalGenerarForm #txt_persona_id").val("");
@@ -80,10 +58,10 @@ AgregarEditarAjax=function(){
     }
 }
 
-HTMLAgregarEditar=function(result){
+HTMLAgregarEditar=function(result){console.log();
     if( result.rst==1 ){
         msjG.mensaje('success',result.msj,4000);
-        $('#ModalCandidato').modal('hide');
+        $("#ModalGenerarForm #txt_codigo").val(result.aleatorio);
         AjaxCandidato.Cargar(HTMLCargarCandidato);
     }
     else{

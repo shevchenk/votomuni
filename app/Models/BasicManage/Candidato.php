@@ -41,20 +41,15 @@ class Candidato extends Model
 
     public static function runLoad($r)
     {
-        $sql=Candidato::select('candidatos.id',DB::raw('CONCAT_WS(" ",pe.paterno,pe.materno,pe.nombre) as candidato'),'pe.dni','pe.sexo','candidatos.estado')
-            ->join('personas AS pe','candidatos.persona_id','=','pe.id')
+        $sql=Persona::select('ca.id',DB::raw('CONCAT_WS(" ",personas.paterno,personas.materno,personas.nombre) as candidato'),'personas.dni','personas.sexo','ca.estado')
+            ->join('votaciones.candidatos AS ca','ca.persona_id','=','personas.id')
             ->where( 
                 function($query) use ($r){
-                $query->where('candidatos.estado','=',1);
-                    if( $r->has("estado") ){
-                        $estado=trim($r->estado);
-                        if( $estado !='' ){
-                            $query->where('estado','=',1);
-                        }
-                    }
+                $query->where('ca.estado','=',1);
+
                 }
             );
-        $result = $sql->orderBy('pe.paterno','asc')->get();
+        $result = $sql->orderBy('personas.paterno','asc')->get();
         return $result;
     }
 

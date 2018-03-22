@@ -13,12 +13,26 @@ class PreVoto extends Model
 
     public static function runNew($r)
     {
+        DB::beginTransaction();
+        $aleatorio=rand(1000,9999);
+        $prevoto= PreVoto::where('codigo','=',$aleatorio)->first();
+        if($prevoto){
+            while(count($prevoto)==1){
+                $aleatorio=rand(1000,9999);
+                $prevoto= PreVoto::where('codigo','=',$aleatorio)->first();
+            }
+        }else{
+        $updt="UPDATE pre_votos SET estado=0 WHERE persona_id=".$r->persona_id;
+        DB::update($updt);
         $candidato= new PreVoto;
         $candidato->persona_id = trim( $r->persona_id );
-        $candidato->codigo = trim( $r->codigo );
+        $candidato->codigo = trim( $aleatorio );
         $candidato->estado = 1;
         $candidato->persona_id_created_at = Auth::user()->id;
         $candidato->save();
+        DB::commit();
+        return $aleatorio;
+        }
     }
 
 }

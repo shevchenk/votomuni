@@ -97,8 +97,9 @@ class CandidatoBM extends Controller
             $validator=Validator::make($r->all(), $rules,$mensaje);
 
             if ( !$validator->fails() ) {
-                PreVoto::runNew($r);
+                $aleatorio=PreVoto::runNew($r);
                 $return['rst'] = 1;
+                $return['aleatorio'] = $aleatorio;
                 $return['msj'] = 'Registro creado';
             }
             else{

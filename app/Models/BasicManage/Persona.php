@@ -9,7 +9,7 @@ use DB;
 class Persona extends Model
 {
     protected   $table = 'personas';
-    protected $connection= 'mysql';
+    protected $connection= 'mysql2';
 
     public static function runEditStatus($r)
     {
