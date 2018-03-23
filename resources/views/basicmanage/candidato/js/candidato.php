@@ -55,7 +55,9 @@ AgregarEditar=function(val,id){
 }
 
 CambiarEstado=function(estado,id){
-    AjaxCandidato.CambiarEstado(HTMLCambiarEstado,estado,id);
+    sweetalertG.confirm("Confirmación!", "Confirme eliminación", function(){
+        AjaxCandidato.CambiarEstado(HTMLCambiarEstado,estado,id);
+    }); 
 }
 
 BuscarPersona=function(){
@@ -110,9 +112,9 @@ HTMLCargarCandidato=function(result){
     $('#TableCandidato').DataTable().destroy();
 
     $.each(result.data,function(index,r){
-        estadohtml='<span id="'+r.id+'" onClick="CambiarEstado(1,'+r.id+')" class="btn btn-danger">Inactivo</span>';
+        estadohtml='<span id="'+r.id+'" onClick="CambiarEstado(1,'+r.id+')" class="btn btn-danger">Eliminar</span>';
         if(r.estado==1){
-            estadohtml='<span id="'+r.id+'" onClick="CambiarEstado(0,'+r.id+')" class="btn btn-success">Activo</span>';
+            estadohtml='<span id="'+r.id+'" onClick="CambiarEstado(0,'+r.id+')" class="btn btn-danger">Eliminar</span>';
         }
 
         html+="<tr id='trid_"+r.id+"'>"+
