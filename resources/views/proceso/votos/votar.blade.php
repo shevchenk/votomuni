@@ -43,7 +43,7 @@
                   <input type="text" class="form-control" id="txt_codigo" name="txt_codigo" placeholder="0000">
                 </div>
               </div>
-              <button type="button" id="btnbuscar_votos" name="btnbuscar_votos" class="btn btn-primary">Votar</button>
+              <button type="button" id="btnbuscar_votos" name="btnbuscar_votos" class="btn btn-primary">Validar C&oacute;digo</button>
             </form>
         </div>
 

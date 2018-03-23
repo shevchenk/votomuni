@@ -24,31 +24,42 @@ class VotarPR extends Controller
             $votos = Votar::where('codigo', '=', $r->codigo)
                               ->first();
 
-            if($votos->estado == 1)
-            {
-                if($votos->estado_voto == 0)
-                {
-                    $renturnModel = Votar::listarCandidatos();       
-                    $return['rst'] = 1;
-                    $return['data'] = $renturnModel;
-                    $return['msj'] = "";
-                    $return['pre_voto_id'] = $votos->id;
-                }
-                else
-                {
-                    $return['rst'] = 2;
-                    $return['data'] = '';
-                    $return['msj'] = "Ya realizó una votación con el código que ingresó!";
-                    $return['pre_voto_id'] = 0;
-                }
-            }
-            else
+            if(count($votos) == 0)
             {
                 $return['rst'] = 3;
                 $return['data'] = '';
                 $return['msj'] = "Codigo no generado!";
                 $return['pre_voto_id'] = 0;
             }
+            else
+            {
+                if($votos->estado == 1)
+                {
+                    if($votos->estado_voto == 0)
+                    {
+                        $renturnModel = Votar::listarCandidatos();       
+                        $return['rst'] = 1;
+                        $return['data'] = $renturnModel;
+                        $return['msj'] = "";
+                        $return['pre_voto_id'] = $votos->id;
+                    }
+                    else
+                    {
+                        $return['rst'] = 2;
+                        $return['data'] = '';
+                        $return['msj'] = "Ya realizó una votación con el código que ingresó!";
+                        $return['pre_voto_id'] = 0;
+                    }
+                }
+                else
+                {
+                    $return['rst'] = 3;
+                    $return['data'] = '';
+                    $return['msj'] = "Codigo no generado!";
+                    $return['pre_voto_id'] = 0;
+                }
+            }
+            
             
             return response()->json($return);
         }

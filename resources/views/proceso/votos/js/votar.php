@@ -40,8 +40,10 @@ HTMLCargarDatos=function(result){
         $("#dv_candidatos").html(html).show('slow');
 
     }else if( result.rst==3 ){
+        $("#dv_candidatos").html('').hide('slow');
         msjG.mensaje('danger',result.msj,4000);
     }else{
+        $("#dv_candidatos").html('').hide('slow');
         msjG.mensaje('warning',result.msj,4000);
     }
 
