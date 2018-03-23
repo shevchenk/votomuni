@@ -14,7 +14,7 @@ class Votar extends Model
     public static function listarCandidatos()
     {
         $sql = DB::table('candidatos AS c')
-              ->join('personas AS p',function($join){
+              ->join('procesos.personas AS p',function($join){
                   $join->on('c.persona_id','=','p.id');
               })
               ->select(
@@ -24,7 +24,7 @@ class Votar extends Model
               'p.materno',
               'p.nombre',
               'p.dni',
-              'p.foto'
+              'c.foto'
               )
               ->where('c.estado', '=', 1)
               ->get();

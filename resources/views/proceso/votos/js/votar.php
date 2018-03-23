@@ -27,8 +27,8 @@ HTMLCargarDatos=function(result){
         html += '<div class="row">';
         $.each(result.data,function(index, r){
 
-            html+='<div class="col-lg-4">'+
-                      '<img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">'+
+            html+='<div class="col-lg-3">'+
+                      '<img class="img-circle" src="'+r.foto+'" alt="Generic placeholder image" width="140" height="140">'+
                       '<h2>'+r.nombre+' '+r.paterno+'</h2>'+
                       '<p>Seleccione su Candidato</p>'+
                       '<p><button type="button" id="btnbuscar_votos" name="btnbuscar_votos" class="btn btn-primary" onclick="guadarVoto('+r.id+', '+result.pre_voto_id+')">VOTAR</button></p>'+
@@ -46,8 +46,6 @@ HTMLCargarDatos=function(result){
     }
 
 };
-
-
 
 guadarVoto=function(candidato_id, pre_voto_id){
     swal({
