@@ -32,12 +32,14 @@ class VotarPR extends Controller
                     $return['rst'] = 1;
                     $return['data'] = $renturnModel;
                     $return['msj'] = "";
+                    $return['pre_voto_id'] = $votos->id;
                 }
                 else
                 {
                     $return['rst'] = 2;
                     $return['data'] = '';
                     $return['msj'] = "Ya realizó una votación con el código que ingresó!";
+                    $return['pre_voto_id'] = 0;
                 }
             }
             else
@@ -45,6 +47,7 @@ class VotarPR extends Controller
                 $return['rst'] = 3;
                 $return['data'] = '';
                 $return['msj'] = "Codigo no generado!";
+                $return['pre_voto_id'] = 0;
             }
             
             return response()->json($return);
@@ -59,4 +62,11 @@ class VotarPR extends Controller
         return response()->json($return);
     }
 
+    public function actualizaPreVoto(Request $r )
+    {
+        Votar::runEdit($r);
+        $return['rst'] = 1;
+        $return['msj'] = 'Registro actualizado';
+        return response()->json($return);
+    }
 }

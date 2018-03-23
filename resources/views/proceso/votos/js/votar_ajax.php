@@ -6,10 +6,14 @@ var AjaxData={
         masterG.postAjax(url,data,evento);
     },
     guadarVoto:function(candidato_id, pre_voto_id, evento) {
-
         var data={pre_voto_id : pre_voto_id, candidato_id : candidato_id};
         url='AjaxDinamic/Proceso.VotarPR@nuevoVoto';
         masterG.postAjax(url,data,evento);
-    }    
+    },
+    actualizaPreVoto:function(pre_voto_id, evento) {
+        var data={pre_voto_id : pre_voto_id};
+        url='AjaxDinamic/Proceso.VotarPR@actualizaPreVoto';
+        masterG.postAjax(url,data,evento);
+    }
 };
 </script>

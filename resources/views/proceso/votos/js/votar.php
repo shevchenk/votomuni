@@ -30,8 +30,8 @@ HTMLCargarDatos=function(result){
             html+='<div class="col-lg-4">'+
                       '<img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">'+
                       '<h2>'+r.nombre+' '+r.paterno+'</h2>'+
-                      '<p>Puede votar por este candidato</p>'+
-                      '<p><button type="button" id="btnbuscar_votos" name="btnbuscar_votos" class="btn btn-primary" onclick="guadarVoto('+r.id+', 1)">VOTAR</button></p>'+
+                      '<p>Seleccione su Candidato</p>'+
+                      '<p><button type="button" id="btnbuscar_votos" name="btnbuscar_votos" class="btn btn-primary" onclick="guadarVoto('+r.id+', '+result.pre_voto_id+')">VOTAR</button></p>'+
                     '</div>';
         });
         html += '</div>';
@@ -50,9 +50,30 @@ HTMLCargarDatos=function(result){
 
 
 guadarVoto=function(candidato_id, pre_voto_id){
-    sweetalertG.confirm("¿Estás seguro?", "Confirme su Voto", function(){
-        AjaxData.guadarVoto(candidato_id, pre_voto_id);
-        $("#dv_candidatos").html('').hide('slow');
+    swal({
+          title: "Confirme su Voto!",   
+          //text: "Confirme su Voto!",   
+          type: "info",   
+          showCancelButton: true,   
+          confirmButtonColor: "#0489B1",   
+          confirmButtonText: "Confirmar",   
+          cancelButtonText: "Cancelar",   
+          closeOnConfirm: false,   
+          closeOnCancel: false
+          //showLoaderOnConfirm: true 
+        }, function(isConfirm){   
+          if (isConfirm) 
+          {
+            swal("Confirmado!", "Voto registrado satisfactoriamente!", "success");
+            AjaxData.guadarVoto(candidato_id, pre_voto_id);
+            AjaxData.actualizaPreVoto(pre_voto_id);
+            $("#dv_candidatos").html('').hide('slow');
+            $("#txt_codigo").val('');
+          } 
+          else 
+          {     
+            swal("Cancelado", "No ha confirmado su voto!", "error");   
+          } 
     });
     
 }
