@@ -16,8 +16,8 @@
 
 @section('content')
 <section class="content-header">
-    <h1>Candidatos
-        <small>Mantenimiento</small>
+    <h1>Registro de Votante
+        <small>Proceso</small>
     </h1>
     <ol class="breadcrumb">
         <li><i class="fa fa-sitemap"></i> Mantenimiento</a></li>
@@ -71,7 +71,7 @@
                             </div>
                         </form>
                     <div class='btn btn-primary btn-sm' class="btn btn-primary" onClick="AgregarEditarAjax()" >
-                        <i class="fa fa-plus fa-lg"></i>&nbsp;Nuevo</a>
+                        <i class="fa fa-plus fa-lg"></i>&nbsp;Generar Código de Votación</a>
                     </div>
                 </div><!-- .box-body -->
             </div><!-- .box -->
