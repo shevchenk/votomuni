@@ -24,7 +24,7 @@ HTMLCargarDatos=function(result){
         //console.log(result.data);
         var html = '';
 
-        html += '<div class="row">';
+        html += '<div class="row"><div class="col-lg-3"></div>';
         $.each(result.data,function(index, r){
 
             html+='<div class="col-lg-3">'+
